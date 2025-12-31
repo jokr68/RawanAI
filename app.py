@@ -72,7 +72,7 @@ with gr.Blocks(css=custom_css, theme=gr.themes.Soft(primary_hue="purple")) as de
         return "", chat_history
 
     msg.submit(respond, [msg, chatbot], [msg, chatbot])
-    clear.click(lambda: None, None, chatbot, queue=False)
+    clear.click(lambda: [], None, chatbot, queue=False)
 
 if __name__ == "__main__":
     demo.launch()
