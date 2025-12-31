@@ -43,8 +43,25 @@ def chat_function(message, history):
         messages.append({"role": "assistant", "content": assistant_msg})
     
     messages.append({"role": "user", "content": message})
-    
-    output = pipe(messages, **generation_args)
+
+    try:
+        prompt = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True,
+        )
+    except (TypeError, ValueError):
+        safe_messages = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": str(message)},
+        ]
+        prompt = tokenizer.apply_chat_template(
+            safe_messages,
+            tokenize=False,
+            add_generation_prompt=True,
+        )
+
+    output = pipe(prompt, **generation_args)
     response = output[0]['generated_text']
     return response
 
