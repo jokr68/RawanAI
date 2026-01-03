@@ -43,8 +43,15 @@ def chat_function(message, history):
     
     messages.append({"role": "user", "content": message})
     
-    output = pipe(messages, **generation_args)
-    response = output[0]['generated_text']
+    prompt = tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True,
+    )
+    output = pipe(prompt, **generation_args)
+    response = output[0]["generated_text"]
+    if response.startswith(prompt):
+        response = response[len(prompt):]
     return response
 
 # تصميم الواجهة CSS
