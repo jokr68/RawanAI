@@ -43,7 +43,8 @@ def chat_function(message, history):
     
     messages.append({"role": "user", "content": message})
     
-    output = pipe(messages, **generation_args)
+    with torch.inference_mode():
+        output = pipe(messages, **generation_args)
     response = output[0]['generated_text']
     return response
 
