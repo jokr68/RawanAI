@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  rawanai:
+    build: .
+    container_name: rawanai-app
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./models:/app/models
+      - ./logs:/app/logs
+    environment:
+      - DEBUG=false
+      - MODEL_ID=microsoft/Phi-3-mini-4k-instruct
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 16G
+        reservations:
+          memory: 8G
