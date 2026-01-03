@@ -36,6 +36,16 @@ SYSTEM_PROMPT = """
 """
 
 def chat_function(message, history):
+    """
+    Generate a model response for a user message using the configured system prompt and conversation history.
+    
+    Parameters:
+        message (str): The latest user message to be answered.
+        history (list[tuple[str, str]]): Sequence of prior (user_message, assistant_message) pairs in chronological order.
+    
+    Returns:
+        response (str): The assistant's generated reply text.
+    """
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     for user_msg, assistant_msg in history:
         messages.append({"role": "user", "content": user_msg})
