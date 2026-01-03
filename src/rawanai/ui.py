@@ -5,10 +5,7 @@ Handles the web interface and user interactions.
 import logging
 from typing import Tuple, List
 
-import gradio as gr
-
 from config.config import config
-from src.rawanai.chatbot import chatbot
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +36,9 @@ def respond(
         Tuple of (empty string, updated chat history).
     """
     try:
+        # Lazy import to avoid loading heavy dependencies at module level
+        from src.rawanai.chatbot import chatbot
+        
         bot_message = chatbot.process_message(message, chat_history)
         chat_history.append((message, bot_message))
         return "", chat_history
@@ -56,16 +56,19 @@ def clear_chat() -> List[Tuple[str, str]]:
     Returns:
         Empty chat history.
     """
+    from src.rawanai.chatbot import chatbot
     return chatbot.clear_history()
 
 
-def create_interface() -> gr.Blocks:
+def create_interface():
     """
     Create and configure the Gradio interface.
     
     Returns:
         Configured Gradio Blocks interface.
     """
+    import gradio as gr
+    
     with gr.Blocks(
         css=CUSTOM_CSS,
         theme=gr.themes.Soft(primary_hue=config.app.theme_primary_hue)
@@ -93,7 +96,7 @@ def create_interface() -> gr.Blocks:
         return demo
 
 
-def launch_interface(demo: gr.Blocks, **kwargs) -> None:
+def launch_interface(demo, **kwargs) -> None:
     """
     Launch the Gradio interface.
     

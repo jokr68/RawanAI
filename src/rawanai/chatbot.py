@@ -5,7 +5,6 @@ Handles conversation history and message processing.
 import logging
 from typing import List, Tuple, Optional
 
-from src.rawanai.model import model_manager
 from src.rawanai.prompts import get_system_prompt
 
 logger = logging.getLogger(__name__)
@@ -17,6 +16,15 @@ class Chatbot:
     def __init__(self):
         """Initialize the chatbot."""
         self.system_prompt = get_system_prompt()
+        self._model_manager = None
+    
+    @property
+    def model_manager(self):
+        """Lazy load model manager."""
+        if self._model_manager is None:
+            from src.rawanai.model import model_manager
+            self._model_manager = model_manager
+        return self._model_manager
     
     def process_message(
         self,
@@ -49,7 +57,7 @@ class Chatbot:
             messages.append({"role": "user", "content": message})
             
             # Generate response
-            response = model_manager.generate_response(messages)
+            response = self.model_manager.generate_response(messages)
             
             logger.info(f"Generated response for message: {message[:50]}...")
             return response
