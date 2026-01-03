@@ -36,6 +36,7 @@ SYSTEM_PROMPT = """
 """
 
 def chat_function(message, history):
+    history = history or []
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     for user_msg, assistant_msg in history:
         messages.append({"role": "user", "content": user_msg})
@@ -66,12 +67,13 @@ with gr.Blocks(css=custom_css, theme=gr.themes.Soft(primary_hue="purple")) as de
     clear = gr.Button("مسح المحادثة")
 
     def respond(message, chat_history):
+        chat_history = chat_history or []
         bot_message = chat_function(message, chat_history)
         chat_history.append((message, bot_message))
         return "", chat_history
 
     msg.submit(respond, [msg, chatbot], [msg, chatbot])
-    clear.click(lambda: None, None, chatbot, queue=False)
+    clear.click(lambda: [], None, chatbot, queue=False)
 
 if __name__ == "__main__":
     demo.launch()
