@@ -2,11 +2,13 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
 
 # Virtual environments
 venv/
 env/
 ENV/
+.venv/
 
 # IDE
 .vscode/
@@ -14,6 +16,7 @@ ENV/
 *.swp
 *.swo
 *~
+.pytest_cache/
 
 # OS
 .DS_Store
@@ -22,3 +25,20 @@ Thumbs.db
 # Model cache
 models/
 *.bin
+
+# Environment variables
+.env
+
+# Logs
+*.log
+logs/
+
+# Testing
+.coverage
+htmlcov/
+.tox/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
