@@ -6,6 +6,7 @@ import logging
 from typing import Tuple, List
 
 from config.config import config
+from src.rawanai.constants import ERROR_MESSAGE_TEMPLATE
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +45,7 @@ def respond(
         return "", chat_history
     except Exception as e:
         logger.error(f"Error in respond function: {e}")
-        error_msg = f"عذراً يا حبيبي، حدث خطأ: {str(e)} 💔"
+        error_msg = ERROR_MESSAGE_TEMPLATE.format(error=str(e))
         chat_history.append((message, error_msg))
         return "", chat_history
 

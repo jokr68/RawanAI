@@ -24,21 +24,23 @@ def test_clear_history():
 def test_process_message_empty():
     """Test processing empty message."""
     from src.rawanai.chatbot import Chatbot
+    from src.rawanai.constants import EMPTY_MESSAGE_RESPONSE
+    
     chatbot = Chatbot()
     empty_history = []
     response = chatbot.process_message("", empty_history)
-    assert response is not None
-    assert "قلبي" in response or "شيء" in response
+    assert response == EMPTY_MESSAGE_RESPONSE
 
 
 def test_process_message_whitespace():
     """Test processing whitespace-only message."""
     from src.rawanai.chatbot import Chatbot
+    from src.rawanai.constants import EMPTY_MESSAGE_RESPONSE
+    
     chatbot = Chatbot()
     empty_history = []
     response = chatbot.process_message("   ", empty_history)
-    assert response is not None
-    assert len(response) > 0
+    assert response == EMPTY_MESSAGE_RESPONSE
 
 
 def test_chatbot_has_system_prompt():

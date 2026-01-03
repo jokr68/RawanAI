@@ -5,9 +5,6 @@ Handles model loading, initialization, and text generation.
 import logging
 from typing import List, Dict, Any, Optional
 
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-
 from config.config import config
 
 # Setup logging
@@ -33,6 +30,10 @@ class ModelManager:
     def load_model(self) -> None:
         """Load the AI model and tokenizer."""
         try:
+            # Import heavy dependencies only when loading the model
+            import torch
+            from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+            
             logger.info(f"Loading model: {config.model.model_id}")
             
             self.tokenizer = AutoTokenizer.from_pretrained(config.model.model_id)
@@ -82,7 +83,8 @@ class ModelManager:
             return response
         except Exception as e:
             logger.error(f"Error generating response: {e}")
-            return f"عذراً يا قلبي، حدث خطأ: {str(e)}"
+            from src.rawanai.constants import ERROR_MESSAGE_TEMPLATE
+            return ERROR_MESSAGE_TEMPLATE.format(error=str(e))
     
     def is_loaded(self) -> bool:
         """Check if the model is loaded."""

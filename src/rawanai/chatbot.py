@@ -6,6 +6,7 @@ import logging
 from typing import List, Tuple, Optional
 
 from src.rawanai.prompts import get_system_prompt
+from src.rawanai.constants import EMPTY_MESSAGE_RESPONSE, CHATBOT_ERROR_MESSAGE_TEMPLATE
 
 logger = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ class Chatbot:
             str: The assistant's response.
         """
         if not message or not message.strip():
-            return "يا قلبي، قل لي شيء! 💜"
+            return EMPTY_MESSAGE_RESPONSE
         
         try:
             # Build messages list with system prompt
@@ -64,7 +65,7 @@ class Chatbot:
             
         except Exception as e:
             logger.error(f"Error processing message: {e}")
-            return f"آسفة يا حبيبي، حدث خطأ: {str(e)} 💔"
+            return CHATBOT_ERROR_MESSAGE_TEMPLATE.format(error=str(e))
     
     def clear_history(self) -> List[Tuple[str, str]]:
         """

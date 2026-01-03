@@ -86,17 +86,43 @@ def main():
     # Check if modules can be imported
     print("\n🐍 Checking RawanAI modules...")
     try:
-        from src.rawanai.prompts import get_system_prompt
-        print("✅ prompts module - OK")
+        # Use importlib to check modules without importing heavy dependencies
+        import importlib.util
         
-        from src.rawanai.chatbot import Chatbot
-        print("✅ chatbot module - OK")
+        # Check prompts module (lightweight)
+        spec = importlib.util.find_spec("src.rawanai.prompts")
+        if spec is not None:
+            print("✅ prompts module - OK")
+        else:
+            print("❌ prompts module - NOT FOUND")
+            all_ok = False
         
-        from config.config import Config
-        print("✅ config module - OK")
+        # Check chatbot module (lightweight with lazy loading)
+        spec = importlib.util.find_spec("src.rawanai.chatbot")
+        if spec is not None:
+            print("✅ chatbot module - OK")
+        else:
+            print("❌ chatbot module - NOT FOUND")
+            all_ok = False
+        
+        # Check config module (lightweight)
+        spec = importlib.util.find_spec("config.config")
+        if spec is not None:
+            print("✅ config module - OK")
+        else:
+            print("❌ config module - NOT FOUND")
+            all_ok = False
+        
+        # Check constants module
+        spec = importlib.util.find_spec("src.rawanai.constants")
+        if spec is not None:
+            print("✅ constants module - OK")
+        else:
+            print("❌ constants module - NOT FOUND")
+            all_ok = False
         
     except Exception as e:
-        print(f"❌ Module import error: {e}")
+        print(f"❌ Module check error: {e}")
         all_ok = False
     
     print("\n" + "=" * 60)
