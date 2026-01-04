@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lord'Os | نظام مروى الذكي</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/3d-fluency/94/ai.png">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="boot-screen">
+        <div class="logo-container">
+            <h1>Lord'Os</h1>
+            <p>جارٍ تحميل بروتوكولات مروى...</p>
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <div id="desktop" class="hidden">
+        
+        <header class="status-bar">
+            <div class="time" id="clock">00:00</div>
+            <div class="user-info">أحمد الدوسري <span class="status-dot"></span></div>
+        </header>
+
+        <main class="app-grid">
+            <div class="app-icon" onclick="openApp('chat')">
+                <div class="icon-bg">🤖</div>
+                <span>مروى AI</span>
+            </div>
+            <div class="app-icon" onclick="openApp('analytics')">
+                <div class="icon-bg">📊</div>
+                <span>تحليل الحياة</span>
+            </div>
+            <div class="app-icon" onclick="openApp('habits')">
+                <div class="icon-bg">📝</div>
+                <span>تسجيل العادات</span>
+            </div>
+        </main>
+
+        <div id="app-chat" class="window hidden">
+            <div class="window-header">
+                <span>مروى مسلم الدوسري</span>
+                <button class="close-btn" onclick="closeApp('chat')">×</button>
+            </div>
+            <div class="chat-body" id="chat-box">
+                <div class="message bot">
+                    <p>هلا بك يا أحمد! سمّ، أنا جاهزة لتحليل يومك أو السوالف. وش في خاطرك اليوم؟</p>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="اكتب رسالتك هنا..." onkeypress="handleEnter(event)">
+                <button onclick="sendMessage()">إرسال</button>
+            </div>
+        </div>
+
+        <div id="app-analytics" class="window hidden">
+            <div class="window-header">
+                <span>لوحة القيادة والارتباطات</span>
+                <button class="close-btn" onclick="closeApp('analytics')">×</button>
+            </div>
+            <div class="analytics-content">
+                <div class="card">
+                    <h3>حالة الكيان</h3>
+                    <div class="stat-row">
+                        <span>المزاج العام:</span>
+                        <span class="positive">عالي 🔥</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>الإنتاجية:</span>
+                        <span class="warning">متوسطة ⚠️</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>رؤى مروى (AI Insights)</h3>
+                    <p id="ai-insight-text">جاري تحليل البيانات... لاحظت يا أحمد إن سهرك أمس أثر على تركيزك اليوم بنسبة 20%. أنصحك بكوب قهوة الحين.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="app-habits" class="window hidden">
+             <div class="window-header">
+                <span>سجل البيانات</span>
+                <button class="close-btn" onclick="closeApp('habits')">×</button>
+            </div>
+            <div class="habits-body">
+                <button class="habit-btn" onclick="logHabit('قهوة')">☕ شربت قهوة</button>
+                <button class="habit-btn" onclick="logHabit('رياضة')">💪 تمرين</button>
+                <button class="habit-btn" onclick="logHabit('سهر')">🌙 سهر</button>
+                <button class="habit-btn" onclick="logHabit('عمل عميق')">💻 عمل عميق</button>
+                <p id="log-status" style="margin-top:10px; color:#4caf50; font-size:0.9rem;"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="brain.js"></script>
+</body>
+</html>
