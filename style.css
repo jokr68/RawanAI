@@ -11,8 +11,9 @@
 body {
     background-color: var(--bg-color);
     color: var(--text);
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
 }
 

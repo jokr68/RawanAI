@@ -1,9 +1,18 @@
+// Constants for timing
+const BOOT_ANIMATION_DURATION = 2000;
+const BOOT_FADE_DURATION = 1000;
+const AI_RESPONSE_DELAY = 800;
+const HABIT_LOG_DISPLAY_DURATION = 2000;
+
 // مصفوفة ردود مروى النجدية (محاكاة الذكاء)
 const marwaKnowledge = {
     greetings: ["يا هلا والله بأحمد!", "ارحب تراحيب المطر", "سمّ، آمرني؟"],
     unknown: ["والله يا أحمد هالنقطة يبي لها بحث، بس أبشر بعزك بدرسها وأرد عليك.", "وش تقصد بالضبط يا بعدي؟"],
     habits: ["سجلت لك العادة، وترا الاستمرار هو السر.", "كفو! هذا الشغل الصح."]
 };
+
+// Clock update interval reference
+let clockInterval = null;
 
 // تشغيل النظام
 window.onload = function() {
@@ -12,16 +21,23 @@ window.onload = function() {
         setTimeout(() => {
             document.getElementById('boot-screen').style.display = 'none';
             document.getElementById('desktop').classList.remove('hidden');
-        }, 1000);
-    }, 2000); // محاكاة وقت الإقلاع
-    updateClock();
+        }, BOOT_FADE_DURATION);
+    }, BOOT_ANIMATION_DURATION);
+    startClock();
 };
 
 // الساعة
+function startClock() {
+    updateClock();
+    clockInterval = setInterval(updateClock, 1000);
+}
+
 function updateClock() {
     const now = new Date();
-    document.getElementById('clock').innerText = now.toLocaleTimeString('ar-SA', {hour: '2-digit', minute:'2-digit'});
-    setTimeout(updateClock, 1000);
+    const clockElement = document.getElementById('clock');
+    if (clockElement) {
+        clockElement.innerText = now.toLocaleTimeString('ar-SA', {hour: '2-digit', minute:'2-digit'});
+    }
 }
 
 // إدارة النوافذ
@@ -50,7 +66,7 @@ function sendMessage() {
     setTimeout(() => {
         let reply = generateMarwaResponse(msg);
         addMessage(reply, 'bot');
-    }, 800);
+    }, AI_RESPONSE_DELAY);
 }
 
 function addMessage(text, sender) {
@@ -63,11 +79,21 @@ function addMessage(text, sender) {
 }
 
 function generateMarwaResponse(text) {
-    text = text.toLowerCase();
-    if (text.includes('هلا') || text.includes('سلام')) return marwaKnowledge.greetings[Math.floor(Math.random() * marwaKnowledge.greetings.length)];
-    if (text.includes('تحليل') || text.includes('وضع')) return "بناءً على بياناتك الأخيرة، أشوف إن وضعك مستقر بس تحتاج تزيد ساعات نومك عشان تركيزك يوصل 100%.";
-    if (text.includes('شكرا')) return "العفو، حنا في الخدمة طال عمرك.";
-    if (text.includes('من انت')) return "أنا مروى، ذراعك اليمين، وعقلك الرقمي. مخلوقة عشانك يا أحمد.";
+    // Normalize Arabic text for better matching
+    text = text.trim().toLowerCase();
+    
+    if (text.includes('هلا') || text.includes('سلام')) {
+        return marwaKnowledge.greetings[Math.floor(Math.random() * marwaKnowledge.greetings.length)];
+    }
+    if (text.includes('تحليل') || text.includes('وضع')) {
+        return "بناءً على بياناتك الأخيرة، أشوف إن وضعك مستقر بس تحتاج تزيد ساعات نومك عشان تركيزك يوصل 100%.";
+    }
+    if (text.includes('شكرا')) {
+        return "العفو، حنا في الخدمة طال عمرك.";
+    }
+    if (text.includes('من انت')) {
+        return "أنا مروى، ذراعك اليمين، وعقلك الرقمي. مخلوقة عشانك يا أحمد.";
+    }
     return marwaKnowledge.unknown[Math.floor(Math.random() * marwaKnowledge.unknown.length)];
 }
 
@@ -75,12 +101,17 @@ function generateMarwaResponse(text) {
 function logHabit(habit) {
     // هنا يمكن ربط قاعدة بيانات حقيقية لاحقاً
     const status = document.getElementById('log-status');
-    status.innerText = `✅ تم تسجيل "${habit}" في قاعدة البيانات.`;
-    
-    // ردة فعل فورية من مروى في الشات لو كان مفتوح
-    setTimeout(() => {
-        status.innerText = '';
-        // تحديث التحليل وهمياً
-        document.getElementById('ai-insight-text').innerText = `تحديث: تسجيلك لـ "${habit}" الحين له تأثير إيجابي على مؤشراتك الحيوية.`;
-    }, 2000);
+    if (status) {
+        status.innerText = `✅ تم تسجيل "${habit}" في قاعدة البيانات.`;
+        
+        // ردة فعل فورية من مروى في الشات لو كان مفتوح
+        setTimeout(() => {
+            status.innerText = '';
+            // تحديث التحليل وهمياً
+            const insightElement = document.getElementById('ai-insight-text');
+            if (insightElement) {
+                insightElement.innerText = `تحديث: تسجيلك لـ "${habit}" الحين له تأثير إيجابي على مؤشراتك الحيوية.`;
+            }
+        }, HABIT_LOG_DISPLAY_DURATION);
+    }
 }
