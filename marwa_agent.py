@@ -211,7 +211,11 @@ class MarwaAgent:
     
     def _calculate_correlation_insight(self, activity: str, outcome: str, data_points: List[Tuple]) -> str:
         """حساب رؤية الارتباط"""
-        # تحليل بسيط (في نظام حقيقي، هنا يكون تحليل إحصائي)
+        # TODO: في نظام حقيقي، يُستخدم هنا تحليل إحصائي متقدم مثل:
+        # - معامل ارتباط بيرسون (Pearson correlation coefficient)
+        # - الانحدار الخطي (Linear regression)
+        # - اختبار الدلالة الإحصائية (Statistical significance testing)
+        # التحليل الحالي مبسط للعرض التوضيحي
         if len(data_points) >= 3:
             insight = f"""
             سمّ، بعد ما حللت البيانات، لاحظت:
