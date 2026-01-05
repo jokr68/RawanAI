@@ -12,9 +12,10 @@
       "type": "image/png"
     },
     {
-      "src": "https://cdn-icons-png.flaticon.com/128/5968/5968260.png",
+      "src": "https://cdn-icons-png.flaticon.com/256/5968/5968260.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
