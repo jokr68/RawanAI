@@ -31,16 +31,24 @@ function toggleStartMenu() {
 }
 
 // جعل النوافذ قابلة للسحب (Draggable)
-function dragElement(elmnt) {
+function makeDraggable(windowId, headerId) {
+    const elmnt = document.getElementById(windowId);
+    const header = document.getElementById(headerId);
+    if (!elmnt || !header) return;
+    
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    elmnt.onmousedown = dragMouseDown;
+    
+    header.addEventListener('mousedown', dragMouseDown);
 
     function dragMouseDown(e) {
+        // Only start drag if clicking on the header, not on controls
+        if (e.target.classList.contains('dot')) return;
+        
         e.preventDefault();
         pos3 = e.clientX;
         pos4 = e.clientY;
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
+        document.addEventListener('mouseup', closeDragElement);
+        document.addEventListener('mousemove', elementDrag);
     }
 
     function elementDrag(e) {
@@ -54,8 +62,8 @@ function dragElement(elmnt) {
     }
 
     function closeDragElement() {
-        document.onmouseup = null;
-        document.onmousemove = null;
+        document.removeEventListener('mouseup', closeDragElement);
+        document.removeEventListener('mousemove', elementDrag);
     }
 }
 
@@ -92,4 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // تفعيل السحب للنوافذ
+    makeDraggable('ai-window', 'ai-window-header');
 });
