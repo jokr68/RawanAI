@@ -22,3 +22,4 @@ Thumbs.db
 # Model cache
 models/
 *.bin
+.env
