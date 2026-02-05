@@ -35,9 +35,12 @@ SYSTEM_PROMPT = """
 المخرجات: اجعلي الردود مختصرة عند اللزوم، ومنظمة بعناوين ونقاط.
 """
 
+MAX_TURNS = 10
+
 def chat_function(message, history):
     history = history or []
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    history = history[-MAX_TURNS:]  # حصر عدد الأزواج السابقة لآخر N محادثات
     for user_msg, assistant_msg in history:
         messages.append({"role": "user", "content": user_msg})
         messages.append({"role": "assistant", "content": assistant_msg})
