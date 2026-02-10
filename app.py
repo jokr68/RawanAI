@@ -45,11 +45,11 @@ SYSTEM_PROMPT = """
 
 # أنواع الملفات المدعومة
 SUPPORTED_EXTENSIONS = {
-    "images": [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp", ".svg", ".ico", ".tiff"],
-    "documents": [".pdf", ".doc", ".docx"],
-    "spreadsheets": [".xlsx", ".xls", ".csv"],
-    "presentations": [".pptx", ".ppt"],
-    "text": [".txt", ".md", ".rtf", ".log"],
+    "images": [".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp", ".ico", ".tiff"],
+    "documents": [".pdf", ".docx"],
+    "spreadsheets": [".xlsx", ".csv"],
+    "presentations": [".pptx"],
+    "text": [".txt", ".md", ".rtf", ".log", ".svg"],
     "code": [".py", ".js", ".html", ".css",
              ".java", ".cpp", ".c", ".h", ".cs", ".rb", ".go", ".rs", ".ts",
              ".jsx", ".tsx", ".php", ".sql", ".sh", ".bat", ".r", ".swift",
@@ -112,7 +112,7 @@ def extract_file_content(filepath):
                 f"**المحتوى:**\n{full_text}"
             )
 
-        elif ext in [".doc", ".docx"]:
+        elif ext == ".docx":
             doc = DocxDocument(filepath)
             paragraphs = [p.text for p in doc.paragraphs if p.text.strip()]
             full_text = "\n".join(paragraphs)
@@ -125,7 +125,7 @@ def extract_file_content(filepath):
                 f"**المحتوى:**\n{full_text}"
             )
 
-        elif ext in [".xlsx", ".xls"]:
+        elif ext == ".xlsx":
             wb = load_workbook(filepath, read_only=True, data_only=True)
             sheet_names = wb.sheetnames
             preview_lines = []
@@ -156,7 +156,7 @@ def extract_file_content(filepath):
                 f"**معاينة:**\n{content}"
             )
 
-        elif ext in [".pptx", ".ppt"]:
+        elif ext == ".pptx":
             prs = Presentation(filepath)
             slides_text = []
             slide_count = 0
@@ -171,7 +171,7 @@ def extract_file_content(filepath):
                             text = shape.text_frame.text.strip()
                             if text:
                                 slide_texts.append(text)
-                    except Exception:
+                    except (AttributeError, KeyError, ValueError):
                         continue
                 if slide_texts:
                     slides_text.append(f"شريحة {slide_count}: {' | '.join(slide_texts)}")
