@@ -3,3 +3,8 @@ torch
 transformers
 accelerate
 sentencepiece
+Pillow
+PyPDF2
+python-docx
+openpyxl
+python-pptx
