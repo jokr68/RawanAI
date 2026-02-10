@@ -1,117 +1,106 @@
-// Constants for timing
-const BOOT_ANIMATION_DURATION = 2000;
-const BOOT_FADE_DURATION = 1000;
-const AI_RESPONSE_DELAY = 800;
-const HABIT_LOG_DISPLAY_DURATION = 2000;
-
-// مصفوفة ردود مروى النجدية (محاكاة الذكاء)
-const marwaKnowledge = {
-    greetings: ["يا هلا والله بأحمد!", "ارحب تراحيب المطر", "سمّ، آمرني؟"],
-    unknown: ["والله يا أحمد هالنقطة يبي لها بحث، بس أبشر بعزك بدرسها وأرد عليك.", "وش تقصد بالضبط يا بعدي؟"],
-    habits: ["سجلت لك العادة، وترا الاستمرار هو السر.", "كفو! هذا الشغل الصح."]
-};
-
-// Clock update interval reference
-let clockInterval = null;
-
-// تشغيل النظام
-window.onload = function() {
-    setTimeout(() => {
-        document.getElementById('boot-screen').style.opacity = '0';
-        setTimeout(() => {
-            document.getElementById('boot-screen').style.display = 'none';
-            document.getElementById('desktop').classList.remove('hidden');
-        }, BOOT_FADE_DURATION);
-    }, BOOT_ANIMATION_DURATION);
-    startClock();
-};
-
-// الساعة
-function startClock() {
-    updateClock();
-    clockInterval = setInterval(updateClock, 1000);
-}
-
+// تحديث الساعة
 function updateClock() {
     const now = new Date();
     const clockElement = document.getElementById('clock');
     if (clockElement) {
-        clockElement.innerText = now.toLocaleTimeString('ar-SA', {hour: '2-digit', minute:'2-digit'});
+        clockElement.innerText = now.toLocaleTimeString('ar-SA');
+    }
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// فتح وإغلاق النوافذ
+function openWindow(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.style.display = 'flex';
     }
 }
 
-// إدارة النوافذ
-function openApp(appId) {
-    document.querySelectorAll('.window').forEach(w => w.classList.add('hidden'));
-    document.getElementById('app-' + appId).classList.remove('hidden');
+function closeWindow(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.style.display = 'none';
+    }
 }
 
-function closeApp(appId) {
-    document.getElementById('app-' + appId).classList.add('hidden');
+// قائمة البداية (placeholder)
+function toggleStartMenu() {
+    // يمكن إضافة قائمة بداية هنا لاحقاً
+    console.log('Start menu toggled');
 }
 
-// منطق الشات (مروى)
-function handleEnter(e) { if(e.key === 'Enter') sendMessage(); }
-
-function sendMessage() {
-    const input = document.getElementById('user-input');
-    const msg = input.value.trim();
-    if (!msg) return;
-
-    // عرض رسالة المستخدم
-    addMessage(msg, 'user');
-    input.value = '';
-
-    // محاكاة التفكير والرد
-    setTimeout(() => {
-        let reply = generateMarwaResponse(msg);
-        addMessage(reply, 'bot');
-    }, AI_RESPONSE_DELAY);
-}
-
-function addMessage(text, sender) {
-    const box = document.getElementById('chat-box');
-    const div = document.createElement('div');
-    div.className = `message ${sender}`;
-    div.innerText = text;
-    box.appendChild(div);
-    box.scrollTop = box.scrollHeight;
-}
-
-function generateMarwaResponse(text) {
-    // Normalize Arabic text for better matching
-    text = text.trim().toLowerCase();
+// جعل النوافذ قابلة للسحب (Draggable)
+function makeDraggable(windowId, headerId) {
+    const elmnt = document.getElementById(windowId);
+    const header = document.getElementById(headerId);
+    if (!elmnt || !header) return;
     
-    if (text.includes('هلا') || text.includes('سلام')) {
-        return marwaKnowledge.greetings[Math.floor(Math.random() * marwaKnowledge.greetings.length)];
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    
+    header.addEventListener('mousedown', dragMouseDown);
+
+    function dragMouseDown(e) {
+        // Only start drag if clicking on the header, not on controls
+        if (e.target.classList.contains('dot')) return;
+        
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.addEventListener('mouseup', closeDragElement);
+        document.addEventListener('mousemove', elementDrag);
     }
-    if (text.includes('تحليل') || text.includes('وضع')) {
-        return "بناءً على بياناتك الأخيرة، أشوف إن وضعك مستقر بس تحتاج تزيد ساعات نومك عشان تركيزك يوصل 100%.";
+
+    function elementDrag(e) {
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
     }
-    if (text.includes('شكرا')) {
-        return "العفو، حنا في الخدمة طال عمرك.";
+
+    function closeDragElement() {
+        document.removeEventListener('mouseup', closeDragElement);
+        document.removeEventListener('mousemove', elementDrag);
     }
-    if (text.includes('من انت')) {
-        return "أنا مروى، ذراعك اليمين، وعقلك الرقمي. مخلوقة عشانك يا أحمد.";
-    }
-    return marwaKnowledge.unknown[Math.floor(Math.random() * marwaKnowledge.unknown.length)];
 }
 
-// تسجيل العادات
-function logHabit(habit) {
-    // هنا يمكن ربط قاعدة بيانات حقيقية لاحقاً
-    const status = document.getElementById('log-status');
-    if (status) {
-        status.innerText = `✅ تم تسجيل "${habit}" في قاعدة البيانات.`;
-        
-        // ردة فعل فورية من مروى في الشات لو كان مفتوح
-        setTimeout(() => {
-            status.innerText = '';
-            // تحديث التحليل وهمياً
-            const insightElement = document.getElementById('ai-insight-text');
-            if (insightElement) {
-                insightElement.innerText = `تحديث: تسجيلك لـ "${habit}" الحين له تأثير إيجابي على مؤشراتك الحيوية.`;
-            }
-        }, HABIT_LOG_DISPLAY_DURATION);
-    }
+// منطق روان AI البسيط (للعرض)
+function askAI() {
+    const input = document.getElementById('user-msg');
+    const chatBox = document.getElementById('chat-box');
+    if (!input || !chatBox || input.value === "") return;
+
+    chatBox.innerHTML += `<p><b>أنت:</b> ${escapeHtml(input.value)}</p>`;
+    const userText = input.value;
+    input.value = "";
+
+    setTimeout(() => {
+        chatBox.innerHTML += `<p style="color: #00ffcc;"><b>روان:</b> هلا بك.. أبشر، جاري تنفيذ طلبك بخصوص ${escapeHtml(userText)}</p>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }, 1000);
 }
+
+// دالة للهروب من HTML لمنع XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// إضافة دعم الإدخال بالضغط على Enter
+document.addEventListener('DOMContentLoaded', function() {
+    const userMsgInput = document.getElementById('user-msg');
+    if (userMsgInput) {
+        userMsgInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                askAI();
+            }
+        });
+    }
+    
+    // تفعيل السحب للنوافذ
+    makeDraggable('ai-window', 'ai-window-header');
+});
