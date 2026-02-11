@@ -60,14 +60,14 @@ license: other
 
 ## 🚀 التشغيل المحلي
 
-```bash
+\`\`\`bash
 # افتح الملف مباشرة في المتصفح
 open index.html
 
 # أو استخدم خادم HTTP محلي
 python3 -m http.server 8080
 # ثم افتح: http://localhost:8080
-```
+\`\`\`
 
 ## 🌐 النشر (Deployment)
 
@@ -82,10 +82,10 @@ python3 -m http.server 8080
 3. سيكون النظام متاحاً على: `username.github.io/repo-name`
 
 ### الخيار 3: Vercel
-```bash
+\`\`\`bash
 npm i -g vercel
 vercel --prod
-```
+\`\`\`
 
 ## 📱 التثبيت كتطبيق جوال
 
