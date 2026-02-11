@@ -30,7 +30,7 @@ This file contains instructions specific to the Python backend of RawanAI, which
 - Use absolute imports
 
 ### Example:
-```python
+\`\`\`python
 import gradio as gr
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
@@ -39,7 +39,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 def chat_function(message, history):
     # Arabic content in strings is fine
     system_prompt = "أنتِ روان..."
-```
+\`\`\`
 
 ## Model Configuration
 
@@ -50,14 +50,14 @@ def chat_function(message, history):
 - **trust_remote_code**: `True`
 
 ### Generation Parameters
-```python
+\`\`\`python
 generation_args = {
     "max_new_tokens": 500,
     "return_full_text": False,
     "temperature": 0.7,
     "do_sample": True,
 }
-```
+\`\`\`
 
 **Do not modify these without testing**, as they affect response quality and speed.
 
@@ -85,13 +85,13 @@ The `SYSTEM_PROMPT` variable defines روان's character:
 
 ### Custom CSS
 Keep the dark purple aesthetic and RTL support in `custom_css`:
-```python
+\`\`\`python
 custom_css = """
 body { background-color: #1a1a1a; color: #ffffff; direction: rtl; }
 .message.user { background-color: #4a148c !important; }
 .message.assistant { background-color: #311b92 !important; }
 """
-```
+\`\`\`
 
 ## Dependencies
 
@@ -102,18 +102,18 @@ body { background-color: #1a1a1a; color: #ffffff; direction: rtl; }
 4. Test memory usage (Spaces has 16GB RAM limit)
 
 ### Current Dependencies
-```
+\`\`\`
 gradio==4.29.0  # UI framework (pinned)
 torch            # PyTorch (auto-latest)
 transformers     # HuggingFace models
 accelerate       # Model loading optimization
 sentencepiece    # Tokenizer support
-```
+\`\`\`
 
 ## Testing
 
 ### Local Testing
-```bash
+\`\`\`bash
 # Install dependencies
 pip install -r requirements.txt
 
@@ -121,7 +121,7 @@ pip install -r requirements.txt
 python app.py
 
 # Access at http://localhost:7860
-```
+\`\`\`
 
 ### What to Test
 1. **Arabic Input/Output**: Verify RTL rendering
@@ -146,24 +146,24 @@ python app.py
 
 ### Modifying روان's Personality
 Edit the `SYSTEM_PROMPT` variable:
-```python
+\`\`\`python
 SYSTEM_PROMPT = """
 أنتِ "روان"، وكيلة ذكاء اصطناعي عامة للمساعدة اليومية.
 # Add new traits here...
 """
-```
+\`\`\`
 
 ### Adjusting Response Length
 Modify `max_new_tokens` in `generation_args`:
-```python
+\`\`\`python
 "max_new_tokens": 500,  # Increase for longer responses
-```
+\`\`\`
 
 ### Changing Temperature (Creativity)
 Adjust `temperature` in `generation_args`:
-```python
+\`\`\`python
 "temperature": 0.7,  # Lower (0.5) = more focused, Higher (0.9) = more creative
-```
+\`\`\`
 
 ## Error Handling
 
@@ -173,14 +173,14 @@ Adjust `temperature` in `generation_args`:
 3. **Arabic Encoding Issues**: Ensure UTF-8 encoding in files
 
 ### Debugging
-```python
+\`\`\`python
 # Add logging
 import logging
 logging.basicConfig(level=logging.INFO)
 
 # Check device
 print(f"Using device: {model.device}")
-```
+\`\`\`
 
 ## Security Considerations
 

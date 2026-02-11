@@ -43,7 +43,7 @@ This file contains instructions specific to the Lord'Os PWA (Progressive Web App
 - **Transparency**: Semi-transparent overlays (`rgba()`)
 
 ### Example CSS Pattern:
-```css
+\`\`\`css
 .glass-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -51,7 +51,7 @@ This file contains instructions specific to the Lord'Os PWA (Progressive Web App
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
-```
+\`\`\`
 
 ## HTML Guidelines
 
@@ -66,12 +66,12 @@ This file contains instructions specific to the Lord'Os PWA (Progressive Web App
 - Test text alignment and rendering
 
 ### Example:
-```html
+\`\`\`html
 <div class="arabic-content" dir="rtl" lang="ar">
     <h2>مروى مسلم الدوسري</h2>
     <p>وكيلة ذكية بلهجة نجدية بيضاء</p>
 </div>
-```
+\`\`\`
 
 ### Accessibility
 - Include `alt` attributes for images
@@ -87,7 +87,7 @@ This file contains instructions specific to the Lord'Os PWA (Progressive Web App
 - Follow mobile-first approach
 
 ### RTL Support
-```css
+\`\`\`css
 body {
     direction: rtl; /* For Arabic content */
     text-align: right;
@@ -98,7 +98,7 @@ body {
     margin-inline-start: 10px; /* Instead of margin-left */
     padding-inline-end: 20px;  /* Instead of padding-right */
 }
-```
+\`\`\`
 
 ### Responsive Design
 - Mobile-first: Start with mobile styles, add desktop with media queries
@@ -108,7 +108,7 @@ body {
   - Desktop: `@media (min-width: 1024px)`
 
 ### Example:
-```css
+\`\`\`css
 /* Mobile first */
 .container {
     padding: 10px;
@@ -122,7 +122,7 @@ body {
         font-size: 16px;
     }
 }
-```
+\`\`\`
 
 ### Dark Mode Best Practices
 - Use dark backgrounds with light text
@@ -139,7 +139,7 @@ body {
 - Use template literals for strings
 
 ### Example:
-```javascript
+\`\`\`javascript
 const greetUser = (name) => {
     return `مرحباً ${name}، كيف حالك؟`;
 };
@@ -147,7 +147,7 @@ const greetUser = (name) => {
 // Use descriptive variable names
 const userMessage = document.getElementById('user-input');
 const sendButton = document.querySelector('.send-btn');
-```
+\`\`\`
 
 ### Event Handling
 - Use event delegation when possible
@@ -155,7 +155,7 @@ const sendButton = document.querySelector('.send-btn');
 - Handle mobile touch events
 
 ### Example:
-```javascript
+\`\`\`javascript
 // Good: Event delegation
 document.addEventListener('click', (e) => {
     if (e.target.matches('.button')) {
@@ -165,7 +165,7 @@ document.addEventListener('click', (e) => {
 
 // Touch support
 element.addEventListener('touchstart', handleTouch);
-```
+\`\`\`
 
 ### مروى AI Character Logic
 The `brain.js` file contains the AI agent's personality:
@@ -178,7 +178,7 @@ The `brain.js` file contains the AI agent's personality:
 ## PWA Configuration (manifest.json)
 
 ### Required Fields
-```json
+\`\`\`json
 {
   "name": "Lord'Os AI",
   "short_name": "Lord'Os",
@@ -188,7 +188,7 @@ The `brain.js` file contains the AI agent's personality:
   "theme_color": "#0a0a0a",
   "orientation": "portrait"
 }
-```
+\`\`\`
 
 ### Icons
 - Provide 192x192 and 512x512 PNG icons
@@ -214,10 +214,10 @@ The `brain.js` file contains the AI agent's personality:
 - Use `async` or `defer` for script tags
 
 ### Example:
-```html
+\`\`\`html
 <link rel="preload" href="style.css" as="style">
 <script src="brain.js" defer></script>
-```
+\`\`\`
 
 ## Common Tasks
 
@@ -230,22 +230,22 @@ The `brain.js` file contains the AI agent's personality:
 
 ### Modifying مروى's Responses
 Edit the response logic in `brain.js`:
-```javascript
+\`\`\`javascript
 const responses = {
     greeting: "سمّ، أبشر بعزك! كيف أقدر أساعدك؟",
     farewell: "يسعد مساك، يا بعد حيّي 💜"
 };
-```
+\`\`\`
 
 ### Changing Theme Colors
 Update CSS variables or direct color values:
-```css
+\`\`\`css
 :root {
     --primary-bg: #0a0a0a;
     --accent-color: #9c27b0;
     --text-color: #ffffff;
 }
-```
+\`\`\`
 
 ## Testing Checklist
 
@@ -272,25 +272,25 @@ Update CSS variables or direct color values:
 ## Deployment
 
 ### Netlify
-```bash
+\`\`\`bash
 # Drag and drop these files:
 # - index.html
 # - style.css
 # - brain.js
 # - manifest.json
-```
+\`\`\`
 
 ### GitHub Pages
-```bash
+\`\`\`bash
 # Enable in repository settings
 # Access at: https://username.github.io/RawanAI
-```
+\`\`\`
 
 ### Vercel
-```bash
+\`\`\`bash
 npm i -g vercel
 vercel --prod
-```
+\`\`\`
 
 ## Security Considerations
 
@@ -300,13 +300,13 @@ vercel --prod
 - Use `textContent` for displaying user data
 
 ### Example:
-```javascript
+\`\`\`javascript
 // Good: Safe
 element.textContent = userInput;
 
 // Bad: Vulnerable to XSS
 element.innerHTML = userInput;
-```
+\`\`\`
 
 ### External Resources
 - Use HTTPS for all external resources

@@ -11,7 +11,7 @@
 
 ### 1.1 خريطة الملفات الحالية وعلاقاتها
 
-```
+\`\`\`
 RawanAI/
 ├── app.py                    # [PYTHON] واجهة Gradio + نموذج Phi-3 (HuggingFace Spaces)
 ├── requirements.txt          # [PYTHON] تبعيات Python: gradio, torch, transformers
@@ -29,7 +29,7 @@ RawanAI/
 ├── hooks/                    # [NEXT.JS] use-mobile, use-toast
 ├── lib/utils.ts              # [NEXT.JS] دالة cn() لدمج الأصناف
 └── package.json              # [NEXT.JS] Next.js 16 + React 19.2 + Tailwind v4
-```
+\`\`\`
 
 ### 1.2 جدول الثغرات المكتشفة (مصنفة حسب الخطورة)
 
@@ -53,7 +53,7 @@ RawanAI/
 
 ### 1.3 تحليل SYSTEM_PROMPT الحالي
 
-```
+\`\`\`
 الحالي في app.py:
 - هوية: سودانية من جدة (روان)
 - أسلوب: لهجة جداوية
@@ -64,7 +64,7 @@ RawanAI/
 - هوية: نجدية (مروى مسلم الدوسري)
 - لا system prompt - ردود ثابتة فقط
 - لا ضوابط محتوى
-```
+\`\`\`
 
 ---
 
@@ -72,7 +72,7 @@ RawanAI/
 
 ### 2.1 البنية الموحدة
 
-```
+\`\`\`
 RawanAI (Next.js 16 Unified)
 │
 ├── Frontend (React 19 + Tailwind v4 + shadcn/ui)
@@ -107,13 +107,13 @@ RawanAI (Next.js 16 Unified)
     ├── Service Worker
     ├── Push Notifications
     └── Offline Support
-```
+\`\`\`
 
 ### 2.2 نظام مستويات صرامة المحتوى
 
 هذا النظام يسمح للمستخدم بالتحكم في مدى تقييد ردود روان:
 
-```
+\`\`\`
 المستوى 1: صارم (Strict)
 ├── يرفض أي محتوى حساس أو مثير للجدل
 ├── يتجنب النقاشات السياسية والدينية
@@ -137,10 +137,10 @@ RawanAI (Next.js 16 Unified)
 ├── يتعامل مع جميع المواضيع بشفافية كاملة
 ├── تنويه: يبقى يرفض المساعدة في الأنشطة غير القانونية
 └── المستخدم يتحمل المسؤولية الكاملة
-```
+\`\`\`
 
 **التنفيذ التقني:**
-```typescript
+\`\`\`typescript
 // نظام إدارة الصرامة
 type ContentStrictnessLevel = 'strict' | 'balanced' | 'relaxed' | 'unrestricted';
 
@@ -159,7 +159,7 @@ function buildSystemPrompt(settings: UserSettings): string {
   const strictnessRules = STRICTNESS_CONFIGS[settings.content_strictness];
   return `${base}\n\n${strictnessRules}`;
 }
-```
+\`\`\`
 
 ---
 
@@ -171,7 +171,7 @@ function buildSystemPrompt(settings: UserSettings): string {
 
 **الإجراءات:**
 
-```
+\`\`\`
 1.1 تحديث layout.tsx
     ├── تغيير lang="en" إلى lang="ar" مع dir="rtl"
     ├── إضافة خط IBM Plex Sans Arabic
@@ -201,7 +201,7 @@ function buildSystemPrompt(settings: UserSettings): string {
     ├── components/rawan/habits-tracker.tsx
     ├── components/rawan/settings-panel.tsx
     └── components/rawan/strictness-selector.tsx
-```
+\`\`\`
 
 **التقنيات:**
 - Next.js 16 App Router
@@ -224,7 +224,7 @@ function buildSystemPrompt(settings: UserSettings): string {
 
 **الإجراءات:**
 
-```
+\`\`\`
 2.1 إعداد AI SDK v6
     ├── تثبيت ai@^6.0.0 و @ai-sdk/react@^3.0.0
     ├── إنشاء app/api/chat/route.ts
@@ -249,11 +249,11 @@ function buildSystemPrompt(settings: UserSettings): string {
     ├── تلخيص المحادثات القديمة تلقائياً
     ├── ربط السياق بالعادات المسجلة
     └── شخصنة الردود حسب تاريخ المستخدم
-```
+\`\`\`
 
 **System Prompt المحسن (مثال للمستوى المتوازن):**
 
-```
+\`\`\`
 أنتِ "روان"، وكيلة ذكاء اصطناعي شخصية.
 
 الهوية:
@@ -284,7 +284,7 @@ function buildSystemPrompt(settings: UserSettings): string {
 - الوقت: {current_time}
 - عادات اليوم: {today_habits}
 - ملخص المحادثة السابقة: {conversation_summary}
-```
+\`\`\`
 
 **معايير الاختبار:**
 - رد روان يأتي في أقل من 2 ثانية (بداية الـ stream)
@@ -300,7 +300,7 @@ function buildSystemPrompt(settings: UserSettings): string {
 
 **الإجراءات:**
 
-```
+\`\`\`
 3.1 إعداد Supabase
     ├── ربط المشروع عبر GetOrRequestIntegration
     ├── إنشاء الجداول (migration scripts)
@@ -387,7 +387,7 @@ function buildSystemPrompt(settings: UserSettings): string {
     ├── actions/habits.ts - CRUD عادات + تسجيل
     ├── actions/analytics.ts - حساب وحفظ التحليلات
     └── actions/settings.ts - تحديث الإعدادات
-```
+\`\`\`
 
 **معايير الاختبار:**
 - المحادثات تُحفظ وتُسترجع بشكل صحيح
@@ -403,7 +403,7 @@ function buildSystemPrompt(settings: UserSettings): string {
 
 **الإجراءات:**
 
-```
+\`\`\`
 4.1 Supabase Auth
     ├── تسجيل بالبريد الإلكتروني + كلمة المرور
     ├── تسجيل بـ Google OAuth (اختياري)
@@ -428,7 +428,7 @@ function buildSystemPrompt(settings: UserSettings): string {
     ├── اختيار مستوى صرامة المحتوى
     ├── إعداد العادات الأولية
     └── محادثة تعريفية مع روان
-```
+\`\`\`
 
 **معايير الاختبار:**
 - التسجيل والدخول يعملان بدون أخطاء
@@ -444,7 +444,7 @@ function buildSystemPrompt(settings: UserSettings): string {
 
 **الإجراءات:**
 
-```
+\`\`\`
 5.1 حساب المؤشرات
     ├── متوسط المزاج اليومي/الأسبوعي/الشهري
     ├── معدل إنجاز العادات
@@ -470,7 +470,7 @@ function buildSystemPrompt(settings: UserSettings): string {
     ├── رسوم بيانية تفاعلية مع فلاتر زمنية
     ├── قسم رؤى AI
     └── تصدير التقارير (اختياري)
-```
+\`\`\`
 
 **معايير الاختبار:**
 - الرسوم البيانية تعكس البيانات الحقيقية
@@ -486,7 +486,7 @@ function buildSystemPrompt(settings: UserSettings): string {
 
 **الإجراءات:**
 
-```
+\`\`\`
 6.1 PWA
     ├── إنشاء manifest.json محلي (بدون أيقونات خارجية)
     ├── إنشاء أيقونات بأحجام متعددة (GenerateImage)
@@ -521,7 +521,7 @@ function buildSystemPrompt(settings: UserSettings): string {
     ├── OG images مولدة
     ├── Structured data (JSON-LD)
     └── sitemap.xml و robots.txt
-```
+\`\`\`
 
 **معايير الاختبار:**
 - Lighthouse PWA score >= 90
@@ -563,7 +563,7 @@ function buildSystemPrompt(settings: UserSettings): string {
 
 ### 5.1 مصفوفة الاختبار
 
-```
+\`\`\`
 اختبارات وحدة (Unit Tests):
 ├── System Prompt builder - يتغير حسب المستويات
 ├── Analytics calculations - حسابات صحيحة
@@ -588,11 +588,11 @@ function buildSystemPrompt(settings: UserSettings): string {
 ├── AI response start < 2s
 ├── Database queries < 100ms
 └── Bundle size < 300KB (initial load)
-```
+\`\`\`
 
 ### 5.2 المراقبة المستمرة
 
-```
+\`\`\`
 Vercel Analytics:
 ├── Web Vitals (LCP, FID, CLS)
 ├── Speed Insights
@@ -603,7 +603,7 @@ Error Tracking:
 ├── API error logging
 ├── AI response failure tracking
 └── Database connection monitoring
-```
+\`\`\`
 
 ---
 
@@ -611,29 +611,29 @@ Error Tracking:
 
 ### 6.1 تحسينات ما بعد الإطلاق (الربع الأول)
 
-```
+\`\`\`
 ├── نظام مواعيد ذكي مع روان
 ├── مشاركة الرؤى عبر WhatsApp/Twitter
 ├── تصدير تقارير PDF
 ├── أوامر صوتية (Web Speech API)
 ├── وضع التركيز (Focus Mode) مع مؤقت
 └── دمج تقويم Google
-```
+\`\`\`
 
 ### 6.2 تحسينات متقدمة (الربع الثاني)
 
-```
+\`\`\`
 ├── RAG (Retrieval Augmented Generation) - روان تبحث في الإنترنت
 ├── دعم الصور (تحليل + توليد)
 ├── Multi-agent: أكثر من شخصية (روان + مروى)
 ├── API عام للمطورين
 ├── تطبيق جوال أصلي (React Native أو Capacitor)
 └── نظام اشتراكات مع Stripe
-```
+\`\`\`
 
 ### 6.3 خطة التوسع التقني
 
-```
+\`\`\`
 قابلية التوسع:
 ├── Edge Functions لتقليل الكمون
 ├── Database connection pooling
@@ -645,13 +645,13 @@ Error Tracking:
 ├── Vercel Edge Network → أقرب منطقة للمستخدم
 ├── Supabase → اختيار منطقة الشرق الأوسط
 └── AI Gateway → توجيه تلقائي
-```
+\`\`\`
 
 ---
 
 ## القسم السابع: ملخص الإجراءات المطلوبة بالترتيب
 
-```
+\`\`\`
  الخطوة 01: حذف الملفات المتضاربة (styles/globals.css المكرر)
  الخطوة 02: تحديث layout.tsx (RTL, خط عربي, metadata)
  الخطوة 03: تحديث globals.css (نظام ألوان RawanAI)
@@ -668,7 +668,7 @@ Error Tracking:
  الخطوة 14: إضافة PWA support (manifest, icons, offline)
  الخطوة 15: اختبار شامل وتحسين الأداء
  الخطوة 16: النشر على Vercel
-```
+\`\`\`
 
 ---
 
