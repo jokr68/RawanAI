@@ -201,7 +201,7 @@ Examples:
 - [GitHub Copilot Coding Agent Documentation](https://docs.github.com/en/copilot/tutorials/coding-agent)
 - [GitHub Copilot Instructions Guide](https://design.dev/guides/copilot-instructions/)
 - [Project README](../README.md)
-- [Copilot Instructions](.github/copilot-instructions.md)
+- [Copilot Instructions](copilot-instructions.md)
 
 ## 📧 Contact
 
