@@ -33,7 +33,7 @@ RawanAI consists of two main components:
 ## Key Commands
 
 ### Testing and Development
-```bash
+\`\`\`bash
 # Python application (RawanAI)
 pip install -r requirements.txt
 python app.py
@@ -42,7 +42,7 @@ python app.py
 # PWA application (Lord'Os)
 python3 -m http.server 8080
 # Access at http://localhost:8080
-```
+\`\`\`
 
 ### Validation
 - Always test Arabic text rendering (RTL)
@@ -66,7 +66,7 @@ python3 -m http.server 8080
 - Dark theme (#0a0a0a background, purple accents)
 
 ### Example Good Output:
-```python
+\`\`\`python
 # Good: Clear variable names, preserved personality
 def chat_function(message, history):
     system_prompt = """
@@ -74,7 +74,7 @@ def chat_function(message, history):
     هويتك: سودانية الأصل، ولدتِ ونشأتِ في جدة، السعودية.
     """
     # Process message...
-```
+\`\`\`
 
 ## Boundaries and Restrictions
 
