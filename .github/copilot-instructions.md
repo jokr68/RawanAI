@@ -26,7 +26,7 @@ RawanAI is a bilingual (Arabic/English) AI assistant project with two main compo
 - Keep code clean, readable, and well-documented
 
 ### Project Structure
-```
+\`\`\`
 RawanAI/
 ├── app.py              # Gradio chatbot application (Python)
 ├── requirements.txt    # Python dependencies
@@ -38,7 +38,7 @@ RawanAI/
     ├── copilot-instructions.md
     ├── instructions/   # Scoped instructions
     └── agents/        # Custom agents
-```
+\`\`\`
 
 ### Testing and Validation
 - Test Python changes with: `python app.py` (local testing)
@@ -107,7 +107,7 @@ RawanAI/
 ## Build and Run Commands
 
 ### Python Application
-```bash
+\`\`\`bash
 # Install dependencies
 pip install -r requirements.txt
 
@@ -115,15 +115,15 @@ pip install -r requirements.txt
 python app.py
 
 # The app will start on http://localhost:7860 (default Gradio port)
-```
+\`\`\`
 
 ### PWA Application
-```bash
+\`\`\`bash
 # Simple HTTP server
 python3 -m http.server 8080
 
 # Then open: http://localhost:8080
-```
+\`\`\`
 
 ## Questions to Ask Before Changes
 
