@@ -111,6 +111,11 @@ vercel --prod
 - إشعارات ذكية
 - مزامنة سحابية
 
+## 📊 تحليل المنافسين
+
+للاطلاع على دراسة شاملة للمنافسين والمقارنة التفصيلية وخارطة التطوير، راجع:
+- [تحليل المنافسين - Competitor Analysis](COMPETITOR_ANALYSIS.md)
+
 ---
 
 ## 🤖 GitHub Copilot Coding Agent
