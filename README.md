@@ -113,4 +113,29 @@ vercel --prod
 
 ---
 
+## 🤖 GitHub Copilot Coding Agent
+
+This repository is configured for use with [GitHub Copilot coding agent](https://docs.github.com/en/copilot/tutorials/coding-agent). You can assign issues to `@copilot` for autonomous implementation!
+
+**Quick Links:**
+- 📘 [Copilot Setup Documentation](.github/README.md)
+- 🚀 [Quick Start Guide](.github/COPILOT_QUICKSTART.md)
+- 📋 [Validation Checklist](.github/COPILOT_VALIDATION.md) (127 items ✅)
+- 🤝 [Contributing Guidelines](.github/CONTRIBUTING.md)
+
+**Create an Issue:**
+- ✨ [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md)
+- 🐛 [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md)
+- 📚 [Documentation Update](.github/ISSUE_TEMPLATE/documentation.md)
+
+The repository includes comprehensive instructions for:
+- Repository-wide guidelines (`.github/copilot-instructions.md`)
+- Python backend guidelines (`.github/instructions/python.instructions.md`)
+- Frontend/PWA guidelines (`.github/instructions/frontend.instructions.md`)
+- Custom RawanAI development agent (`.github/agents/my-agent.agent.md`)
+
+All instructions emphasize bilingual (Arabic/English) support, RTL rendering, character personality preservation, and dark theme aesthetics.
+
+---
+
 **© 2026 أحمد بن محمد بن جمعان بن مبارك الدوسري - جميع الحقوق محفوظة**
